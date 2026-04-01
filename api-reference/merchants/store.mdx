@@ -1,0 +1,260 @@
+---
+title: "Configuración de tienda"
+api: "GET https://api.venepagos.com.ve/api/v1/merchants/{id}/store"
+description: "Gestiona la configuración de la tienda del merchant: obtener, actualizar, subir logo/banner y listar enlaces."
+---
+
+## Autenticación
+
+Este endpoint requiere autenticación mediante Bearer token.
+
+## Parámetros de ruta
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="merchantId" type="string">
+  ID del merchant asociado a la tienda.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Nombre de la tienda.
+</ResponseField>
+
+<ResponseField name="slug" type="string">
+  Slug único de la tienda para la URL pública.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Descripción de la tienda.
+</ResponseField>
+
+<ResponseField name="logo" type="string">
+  URL del logo de la tienda.
+</ResponseField>
+
+<ResponseField name="banner" type="string">
+  URL del banner de la tienda.
+</ResponseField>
+
+<ResponseField name="theme" type="object">
+  Configuración del tema visual de la tienda.
+
+  <Expandable title="Propiedades del tema">
+    <ResponseField name="primaryColor" type="string">
+      Color primario en formato hexadecimal.
+    </ResponseField>
+
+    <ResponseField name="secondaryColor" type="string">
+      Color secundario en formato hexadecimal.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "merchantId": "mrc_abc123",
+  "name": "Mi Tienda",
+  "slug": "mi-tienda",
+  "description": "Tienda de ejemplo",
+  "logo": "https://cdn.venepagos.com.ve/logos/mrc_abc123.png",
+  "banner": "https://cdn.venepagos.com.ve/banners/mrc_abc123.png",
+  "theme": {
+    "primaryColor": "#1a73e8",
+    "secondaryColor": "#ffffff"
+  }
+}
+```
+</ResponseExample>
+
+---
+
+## Actualizar configuración de tienda
+
+<div>
+  `PUT /merchants/{id}/store`
+</div>
+
+Actualiza la configuración de la tienda del merchant.
+
+### Parámetros de ruta
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+### Cuerpo de la solicitud
+
+<ParamField body="name" type="string">
+  Nombre de la tienda.
+</ParamField>
+
+<ParamField body="slug" type="string">
+  Slug único para la URL pública de la tienda.
+</ParamField>
+
+<ParamField body="description" type="string">
+  Descripción de la tienda.
+</ParamField>
+
+<ParamField body="theme" type="object">
+  Configuración del tema visual. Incluye `primaryColor` y `secondaryColor` en formato hexadecimal.
+</ParamField>
+
+### Respuesta
+
+Retorna el objeto de configuración de tienda actualizado (mismo formato que GET).
+
+<ResponseExample>
+```json
+{
+  "merchantId": "mrc_abc123",
+  "name": "Mi Tienda Actualizada",
+  "slug": "mi-tienda-actualizada",
+  "description": "Nueva descripción",
+  "logo": "https://cdn.venepagos.com.ve/logos/mrc_abc123.png",
+  "banner": "https://cdn.venepagos.com.ve/banners/mrc_abc123.png",
+  "theme": {
+    "primaryColor": "#ff5722",
+    "secondaryColor": "#f5f5f5"
+  }
+}
+```
+</ResponseExample>
+
+---
+
+## Subir logo
+
+<div>
+  `POST /merchants/{id}/store/logo`
+</div>
+
+Sube o actualiza el logo de la tienda. El archivo debe enviarse como `multipart/form-data`.
+
+### Parámetros de ruta
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+### Cuerpo de la solicitud
+
+<ParamField body="file" type="file" required>
+  Archivo de imagen del logo. Formatos aceptados: PNG, JPG, WEBP. Tamaño máximo: 2 MB.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="logo" type="string">
+  URL del nuevo logo subido.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "logo": "https://cdn.venepagos.com.ve/logos/mrc_abc123.png"
+}
+```
+</ResponseExample>
+
+---
+
+## Subir banner
+
+<div>
+  `POST /merchants/{id}/store/banner`
+</div>
+
+Sube o actualiza el banner de la tienda. El archivo debe enviarse como `multipart/form-data`.
+
+### Parámetros de ruta
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+### Cuerpo de la solicitud
+
+<ParamField body="file" type="file" required>
+  Archivo de imagen del banner. Formatos aceptados: PNG, JPG, WEBP. Tamaño máximo: 5 MB.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="banner" type="string">
+  URL del nuevo banner subido.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "banner": "https://cdn.venepagos.com.ve/banners/mrc_abc123.png"
+}
+```
+</ResponseExample>
+
+---
+
+## Listar enlaces de la tienda
+
+<div>
+  `GET /merchants/{id}/store/links`
+</div>
+
+Obtiene los enlaces de pago asociados a la tienda del merchant.
+
+### Parámetros de ruta
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="data" type="array">
+  Lista de enlaces de la tienda.
+
+  <Expandable title="Propiedades del enlace">
+    <ResponseField name="id" type="string">
+      Identificador único del enlace.
+    </ResponseField>
+
+    <ResponseField name="url" type="string">
+      URL del enlace de pago.
+    </ResponseField>
+
+    <ResponseField name="label" type="string">
+      Etiqueta descriptiva del enlace.
+    </ResponseField>
+
+    <ResponseField name="active" type="boolean">
+      Indica si el enlace está activo.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "data": [
+    {
+      "id": "lnk_001",
+      "url": "https://pay.venepagos.com.ve/mi-tienda/producto-1",
+      "label": "Producto 1",
+      "active": true
+    },
+    {
+      "id": "lnk_002",
+      "url": "https://pay.venepagos.com.ve/mi-tienda/donacion",
+      "label": "Donación",
+      "active": true
+    }
+  ]
+}
+```
+</ResponseExample>

@@ -1,0 +1,31 @@
+---
+title: "WooCommerce"
+description: "Plugin de VenePagos para WordPress y WooCommerce."
+---
+
+### Requisitos
+
+- WordPress 5.8+
+- WooCommerce 6.0+
+- PHP 7.4+
+
+### Instalación
+
+1. Descarga el archivo `.zip` del plugin desde nuestro [repositorio de lanzamientos](https://github.com/marioagutierrez/venepagos-packages/releases).
+2. Ve a tu panel de WordPress > **Plugins** > **Añadir nuevo** > **Subir plugin**.
+3. Selecciona el archivo descargado e instálalo.
+4. Haz clic en **Activar**.
+
+### Configuración
+
+1. Ve a **WooCommerce** > **Ajustes** > **Pagos**.
+2. Busca **VenePagos Gateway** y haz clic en **Finalizar configuración**.
+3. Introduce tus credenciales:
+   - **API Key**: Tu llave `vp_live_...`.
+   - **Ambiente**: Selecciona `Producción` o `Sandbox`.
+4. Define el título y descripción que verán tus clientes al pagar.
+5. Haz clic en **Guardar cambios**.
+
+### Webhooks
+
+El plugin configura automáticamente el endpoint de webhook en VenePagos para recibir confirmaciones de pago en tiempo real.

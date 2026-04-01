@@ -1,0 +1,61 @@
+---
+title: "Iniciar sesión"
+api: "POST /auth/login"
+description: "Autentica un usuario existente y devuelve tokens de acceso."
+---
+
+<ParamField body="email" type="string" required>
+  Correo electrónico del usuario registrado.
+</ParamField>
+
+<ParamField body="password" type="string" required>
+  Contraseña del usuario.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="accessToken" type="string">
+  Token de acceso JWT para autenticar solicitudes.
+</ResponseField>
+
+<ResponseField name="refreshToken" type="string">
+  Token de actualización para obtener un nuevo access token.
+</ResponseField>
+
+<ResponseField name="user" type="object">
+  Objeto con la información del usuario autenticado.
+
+  <Expandable title="Propiedades">
+    <ResponseField name="id" type="string">
+      Identificador único del usuario.
+    </ResponseField>
+    <ResponseField name="email" type="string">
+      Correo electrónico del usuario.
+    </ResponseField>
+    <ResponseField name="name" type="string">
+      Nombre completo del usuario.
+    </ResponseField>
+    <ResponseField name="role" type="string">
+      Rol asignado al usuario.
+    </ResponseField>
+    <ResponseField name="status" type="string">
+      Estado de la cuenta del usuario.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "usr_abc123",
+    "email": "usuario@ejemplo.com",
+    "name": "Juan Pérez",
+    "role": "user",
+    "status": "active"
+  }
+}
+```
+</ResponseExample>

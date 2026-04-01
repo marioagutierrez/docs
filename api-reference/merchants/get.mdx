@@ -1,0 +1,82 @@
+---
+title: "Obtener merchant"
+api: "GET https://api.venepagos.com.ve/api/v1/merchants/{id}"
+description: "Obtiene los detalles completos de un merchant específico."
+---
+
+## Autenticación
+
+Este endpoint requiere autenticación mediante Bearer token.
+
+## Parámetros de ruta
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="id" type="string">
+  Identificador único del merchant.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Nombre del merchant.
+</ResponseField>
+
+<ResponseField name="rif" type="string">
+  RIF del merchant.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Descripción del merchant.
+</ResponseField>
+
+<ResponseField name="owner" type="object">
+  Información del propietario del merchant.
+
+  <Expandable title="Propiedades del owner">
+    <ResponseField name="id" type="string">
+      ID del usuario propietario.
+    </ResponseField>
+
+    <ResponseField name="email" type="string">
+      Correo electrónico del propietario.
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      Nombre del propietario.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Estado del merchant (`ACTIVE` o `INACTIVE`).
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Fecha de creación en formato ISO 8601.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Fecha de última actualización en formato ISO 8601.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "id": "mrc_abc123",
+  "name": "Mi Tienda",
+  "rif": "J-12345678-9",
+  "description": "Tienda de ejemplo",
+  "owner": {
+    "id": "usr_xyz789",
+    "email": "owner@example.com",
+    "name": "Juan Pérez"
+  },
+  "status": "ACTIVE",
+  "createdAt": "2026-01-15T10:30:00.000Z",
+  "updatedAt": "2026-03-20T14:00:00.000Z"
+}
+```
+</ResponseExample>

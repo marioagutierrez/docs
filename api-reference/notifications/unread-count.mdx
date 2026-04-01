@@ -1,0 +1,23 @@
+---
+title: "Notificaciones sin leer"
+api: "GET /notifications/unread-count"
+description: "Obtiene la cantidad de notificaciones no leídas del usuario autenticado."
+---
+
+<Note>
+  Requiere autenticación con Bearer token.
+</Note>
+
+### Respuesta
+
+<ResponseField name="count" type="number">
+  Cantidad de notificaciones sin leer.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "count": 5
+}
+```
+</ResponseExample>

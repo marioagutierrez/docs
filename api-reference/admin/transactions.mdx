@@ -1,0 +1,102 @@
+---
+title: "Gestión de transacciones"
+api: "GET /admin/transactions"
+description: "Endpoints para la gestión de transacciones de la plataforma. Requiere rol ADMIN."
+---
+
+<Note>
+  Requiere autenticación con Bearer token y rol **ADMIN**.
+</Note>
+
+## Listar transacciones
+
+<ParamField query="page" type="integer">
+  Número de página. Por defecto `1`.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Cantidad de resultados por página. Por defecto `20`.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filtrar por estado de la transacción: `pending`, `completed`, `failed`, `refunded`.
+</ParamField>
+
+<ParamField query="environment" type="string">
+  Filtrar por entorno: `sandbox`, `production`.
+</ParamField>
+
+<ParamField query="merchantId" type="string">
+  Filtrar por identificador del merchant.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="data" type="array">
+  Lista paginada de transacciones.
+</ResponseField>
+
+<ResponseField name="page" type="integer">
+  Página actual.
+</ResponseField>
+
+<ResponseField name="limit" type="integer">
+  Cantidad de resultados por página.
+</ResponseField>
+
+<ResponseField name="total" type="integer">
+  Total de transacciones que coinciden con los filtros.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "id": "txn_abc123",
+      "merchantId": "merch_abc123",
+      "amount": 50.00,
+      "currency": "USD",
+      "status": "completed",
+      "environment": "production",
+      "createdAt": "2026-03-30T15:00:00Z"
+    }
+  ],
+  "page": 1,
+  "limit": 20,
+  "total": 1
+}
+```
+</ResponseExample>
+
+---
+
+## Obtener transacción por ID
+
+```
+GET /admin/transactions/{id}
+```
+
+<ParamField path="id" type="string" required>
+  Identificador único de la transacción.
+</ParamField>
+
+Retorna el detalle completo de una transacción específica.
+
+<ResponseExample>
+```json 200
+{
+  "id": "txn_abc123",
+  "merchantId": "merch_abc123",
+  "merchantName": "Mi Tienda Online",
+  "amount": 50.00,
+  "currency": "USD",
+  "status": "completed",
+  "environment": "production",
+  "paymentMethod": "pago_movil",
+  "reference": "REF-123456",
+  "createdAt": "2026-03-30T15:00:00Z",
+  "completedAt": "2026-03-30T15:01:30Z"
+}
+```
+</ResponseExample>

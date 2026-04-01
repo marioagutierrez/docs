@@ -1,0 +1,87 @@
+---
+title: "Logs de auditoría"
+api: "GET /admin/audit-logs"
+description: "Obtiene los registros de auditoría de la plataforma. Requiere rol ADMIN."
+---
+
+<Note>
+  Requiere autenticación con Bearer token y rol **ADMIN**.
+</Note>
+
+<ParamField query="page" type="integer">
+  Número de página. Por defecto `1`.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Cantidad de resultados por página. Por defecto `20`.
+</ParamField>
+
+<ParamField query="userId" type="string">
+  Filtrar por identificador del usuario que realizó la acción.
+</ParamField>
+
+<ParamField query="action" type="string">
+  Filtrar por tipo de acción (ej: `user.login`, `merchant.create`, `transaction.refund`).
+</ParamField>
+
+### Respuesta
+
+La respuesta es un array de registros de auditoría:
+
+<ResponseField name="id" type="string">
+  Identificador único del registro de auditoría.
+</ResponseField>
+
+<ResponseField name="userId" type="string">
+  Identificador del usuario que realizó la acción.
+</ResponseField>
+
+<ResponseField name="action" type="string">
+  Tipo de acción realizada.
+</ResponseField>
+
+<ResponseField name="resource" type="string">
+  Recurso afectado por la acción.
+</ResponseField>
+
+<ResponseField name="details" type="object">
+  Detalles adicionales de la acción realizada.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Fecha del evento en formato ISO 8601.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "id": "log_abc123",
+      "userId": "usr_abc123",
+      "action": "user.login",
+      "resource": "auth",
+      "details": {
+        "ip": "192.168.1.1",
+        "userAgent": "Mozilla/5.0"
+      },
+      "createdAt": "2026-03-30T14:00:00Z"
+    },
+    {
+      "id": "log_def456",
+      "userId": "usr_abc123",
+      "action": "merchant.create",
+      "resource": "merchants",
+      "details": {
+        "merchantId": "merch_abc123",
+        "name": "Mi Tienda Online"
+      },
+      "createdAt": "2026-03-30T13:00:00Z"
+    }
+  ],
+  "page": 1,
+  "limit": 20,
+  "total": 2
+}
+```
+</ResponseExample>

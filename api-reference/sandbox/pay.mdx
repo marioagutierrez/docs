@@ -1,0 +1,45 @@
+---
+title: "Simular pagos"
+api: "POST /sandbox/pay/{token}/charge"
+description: "Simula el flujo de pago y verificación en el entorno de pruebas."
+---
+
+### Simular Cobro
+
+Usa este endpoint para simular que un Member (cliente) ha iniciado y completado un pago.
+
+<ParamField path="token" type="string" required>
+  Token único del link de pago de prueba.
+</ParamField>
+
+<ParamField body="simulate" type="string" default="success">
+  Resultado deseado: `success`, `failed`, `pending`.
+</ParamField>
+
+---
+
+### Simular Verificación
+
+```
+POST /sandbox/pay/{token}/verify
+```
+
+Simula que el sistema verifica un pago (por ejemplo, después de una transferencia móvil).
+
+<ParamField path="token" type="string" required>
+  Token del link de pago.
+</ParamField>
+
+<ParamField body="simulate" type="string" default="success">
+  Resultado de la verificación: `success`, `failed`, `pending`.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "status": "success",
+  "message": "Pago simulado correctamente",
+  "transactionId": "trx_test_123"
+}
+```
+</ResponseExample>

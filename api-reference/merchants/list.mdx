@@ -1,0 +1,91 @@
+---
+title: "Listar merchants"
+api: "GET https://api.venepagos.com.ve/api/v1/merchants"
+description: "Obtiene una lista paginada de merchants asociados a tu cuenta."
+---
+
+## Autenticación
+
+Este endpoint requiere autenticación mediante Bearer token.
+
+## Parámetros de consulta
+
+<ParamField query="page" type="integer" default="1">
+  Número de página para la paginación.
+</ParamField>
+
+<ParamField query="limit" type="integer" default="50">
+  Cantidad de resultados por página.
+</ParamField>
+
+<ParamField query="search" type="string">
+  Término de búsqueda para filtrar merchants por nombre o RIF.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filtra merchants por estado. Valores posibles: `ACTIVE`, `INACTIVE`.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="data" type="array">
+  Lista de objetos merchant.
+
+  <Expandable title="Propiedades del merchant">
+    <ResponseField name="id" type="string">
+      Identificador único del merchant.
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      Nombre del merchant.
+    </ResponseField>
+
+    <ResponseField name="rif" type="string">
+      RIF del merchant.
+    </ResponseField>
+
+    <ResponseField name="description" type="string">
+      Descripción del merchant.
+    </ResponseField>
+
+    <ResponseField name="owner" type="string">
+      ID del usuario propietario del merchant.
+    </ResponseField>
+
+    <ResponseField name="status" type="string">
+      Estado del merchant (`ACTIVE` o `INACTIVE`).
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseField name="page" type="integer">
+  Página actual.
+</ResponseField>
+
+<ResponseField name="limit" type="integer">
+  Cantidad de resultados por página.
+</ResponseField>
+
+<ResponseField name="total" type="integer">
+  Total de merchants encontrados.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "data": [
+    {
+      "id": "mrc_abc123",
+      "name": "Mi Tienda",
+      "rif": "J-12345678-9",
+      "description": "Tienda de ejemplo",
+      "owner": "usr_xyz789",
+      "status": "ACTIVE"
+    }
+  ],
+  "page": 1,
+  "limit": 50,
+  "total": 1
+}
+```
+</ResponseExample>

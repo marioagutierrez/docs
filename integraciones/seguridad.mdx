@@ -1,0 +1,85 @@
+---
+title: "Seguridad"
+description: "Medidas de seguridad y mejores prácticas para tu integración"
+---
+
+## Seguridad en VenePagos
+
+VenePagos implementa múltiples capas de seguridad para proteger tus transacciones y datos.
+
+## Encriptación
+
+| Capa | Tecnología |
+|------|-----------|
+| **En tránsito** | SSL/TLS 256-bit en todas las comunicaciones |
+| **En reposo** | AES-256 para datos almacenados |
+| **Tokens** | JWT firmados con rotación automática |
+
+## Cumplimiento normativo
+
+- **SUDEBAN** - Cumplimiento con la regulación bancaria venezolana
+- **KYC** - Verificación de identidad obligatoria para todos los usuarios
+- **AML** - Controles anti-lavado de dinero en todas las transacciones
+
+## Mejores prácticas
+
+### Protege tus API keys
+
+<Warning>
+  Nunca expongas tus API keys en código del lado del cliente (frontend, apps móviles, repositorios públicos).
+</Warning>
+
+```javascript
+// MAL - API key expuesta en el frontend
+const response = await fetch('/api/payment', {
+  headers: { 'Authorization': 'Bearer vp_live_abc123' } // NO HAGAS ESTO
+});
+
+// BIEN - Llamada a tu propio backend
+const response = await fetch('/api/payment', {
+  method: 'POST',
+  body: JSON.stringify({ amount: 50 })
+});
+// Tu backend usa la API key de forma segura
+```
+
+### Valida los webhooks
+
+Siempre verifica que las peticiones a tu endpoint de webhook provienen de VenePagos.
+
+### Usa tokens de corta duración
+
+- Usa `accessToken` (24h) para operaciones normales
+- Renueva con `refreshToken` (7 días) cuando expire
+- Para integraciones automatizadas, usa API keys y guárdalas en variables de entorno
+
+### Entornos separados
+
+Mantén separadas tus credenciales de sandbox y producción:
+
+```bash
+# .env.development
+VENEPAGOS_API_KEY=vp_test_abc123
+
+# .env.production
+VENEPAGOS_API_KEY=vp_live_xyz789
+```
+
+## Operaciones con idempotencia
+
+VenePagos soporta **claves de idempotencia** para prevenir operaciones duplicadas. Esto es especialmente útil para transferencias bancarias:
+
+```bash
+curl -X POST https://api.venepagos.com.ve/api/v1/bank/transfer \
+  -H "Authorization: Bearer TU_API_KEY" \
+  -H "Idempotency-Key: unique-key-12345" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "account_number": "01020000000000000000",
+    "destination_bank": "0102",
+    "destination_account": "01340000000000000000",
+    "amount": 100.00
+  }'
+```
+
+Si envías la misma petición con la misma `Idempotency-Key`, recibirás la misma respuesta sin ejecutar la operación de nuevo.

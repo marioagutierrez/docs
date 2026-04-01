@@ -1,0 +1,38 @@
+---
+title: "Dashboard"
+api: "GET /admin/dashboard"
+description: "Obtiene las estadísticas generales de la plataforma. Requiere rol ADMIN."
+---
+
+<Note>
+  Requiere autenticación con Bearer token y rol **ADMIN**.
+</Note>
+
+### Respuesta
+
+<ResponseField name="totalUsers" type="number">
+  Cantidad total de usuarios registrados en la plataforma.
+</ResponseField>
+
+<ResponseField name="totalMerchants" type="number">
+  Cantidad total de merchants registrados.
+</ResponseField>
+
+<ResponseField name="totalTransactions" type="number">
+  Cantidad total de transacciones procesadas.
+</ResponseField>
+
+<ResponseField name="revenue" type="number">
+  Ingresos totales de la plataforma.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "totalUsers": 1250,
+  "totalMerchants": 340,
+  "totalTransactions": 58420,
+  "revenue": 125750.50
+}
+```
+</ResponseExample>

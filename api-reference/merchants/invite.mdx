@@ -1,0 +1,69 @@
+---
+title: "Invitar miembro"
+api: "POST https://api.venepagos.com.ve/api/v1/merchants/{id}/invitations"
+description: "Envía una invitación a un usuario para unirse al merchant."
+---
+
+## Autenticación
+
+Este endpoint requiere autenticación mediante Bearer token.
+
+## Parámetros de ruta
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+## Cuerpo de la solicitud
+
+<ParamField body="email" type="string" required>
+  Correo electrónico del usuario a invitar.
+</ParamField>
+
+<ParamField body="role" type="string" required>
+  Rol que tendrá el usuario invitado. Valores posibles: `ADMIN`, `MEMBER`.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="id" type="string">
+  Identificador único de la invitación.
+</ResponseField>
+
+<ResponseField name="merchantId" type="string">
+  ID del merchant al que se invita.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  Correo electrónico del usuario invitado.
+</ResponseField>
+
+<ResponseField name="role" type="string">
+  Rol asignado al invitado.
+</ResponseField>
+
+<ResponseField name="token" type="string">
+  Token único de la invitación. El usuario invitado debe usar este token para aceptar la invitación.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Estado de la invitación (`PENDING`, `ACCEPTED`, `EXPIRED`).
+</ResponseField>
+
+<ResponseField name="expiresAt" type="string">
+  Fecha de expiración de la invitación en formato ISO 8601.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "id": "inv_def456",
+  "merchantId": "mrc_abc123",
+  "email": "nuevo@example.com",
+  "role": "MEMBER",
+  "token": "tok_invitation_abc123def456",
+  "status": "PENDING",
+  "expiresAt": "2026-04-07T12:00:00.000Z"
+}
+```
+</ResponseExample>

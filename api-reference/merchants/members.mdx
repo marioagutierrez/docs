@@ -1,0 +1,147 @@
+---
+title: "Miembros del merchant"
+api: "GET https://api.venepagos.com.ve/api/v1/merchants/{id}/members"
+description: "Gestiona los miembros de un merchant: listar, actualizar rol y eliminar."
+---
+
+## Autenticación
+
+Este endpoint requiere autenticación mediante Bearer token.
+
+## Parámetros de ruta
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="data" type="array">
+  Lista de miembros del merchant.
+
+  <Expandable title="Propiedades del miembro">
+    <ResponseField name="userId" type="string">
+      Identificador único del usuario.
+    </ResponseField>
+
+    <ResponseField name="email" type="string">
+      Correo electrónico del miembro.
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      Nombre del miembro.
+    </ResponseField>
+
+    <ResponseField name="role" type="string">
+      Rol del miembro dentro del merchant (`OWNER`, `ADMIN` o `MEMBER`).
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "data": [
+    {
+      "userId": "usr_xyz789",
+      "email": "owner@example.com",
+      "name": "Juan Pérez",
+      "role": "OWNER"
+    },
+    {
+      "userId": "usr_abc456",
+      "email": "admin@example.com",
+      "name": "María López",
+      "role": "ADMIN"
+    }
+  ]
+}
+```
+</ResponseExample>
+
+---
+
+## Actualizar rol de miembro
+
+<div>
+  `PUT /merchants/{id}/members/{userId}`
+</div>
+
+Actualiza el rol de un miembro dentro del merchant.
+
+### Parámetros de ruta
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+<ParamField path="userId" type="string" required>
+  Identificador único del usuario miembro.
+</ParamField>
+
+### Cuerpo de la solicitud
+
+<ParamField body="role" type="string" required>
+  Nuevo rol del miembro. Valores posibles: `ADMIN`, `MEMBER`.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="userId" type="string">
+  Identificador único del usuario.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  Correo electrónico del miembro.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Nombre del miembro.
+</ResponseField>
+
+<ResponseField name="role" type="string">
+  Rol actualizado del miembro.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "userId": "usr_abc456",
+  "email": "admin@example.com",
+  "name": "María López",
+  "role": "MEMBER"
+}
+```
+</ResponseExample>
+
+---
+
+## Eliminar miembro
+
+<div>
+  `DELETE /merchants/{id}/members/{userId}`
+</div>
+
+Elimina un miembro del merchant.
+
+### Parámetros de ruta
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+<ParamField path="userId" type="string" required>
+  Identificador único del usuario miembro a eliminar.
+</ParamField>
+
+### Respuesta
+
+Retorna un código `204 No Content` si la operación fue exitosa.
+
+<ResponseExample>
+```json
+{
+  "message": "Miembro eliminado exitosamente"
+}
+```
+</ResponseExample>

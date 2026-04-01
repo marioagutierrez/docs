@@ -1,0 +1,37 @@
+---
+title: "Introducción a los SDKs"
+description: "SDKs oficiales de VenePagos para integrar pagos en tu lenguaje favorito."
+---
+
+VenePagos ofrece librerías oficiales para facilitar la integración de nuestra API en tu aplicación. Todos nuestros SDKs están diseñados para ser intuitivos, seguros y consistentes entre sí.
+
+### Lenguajes soportados
+
+<CardGroup cols={2}>
+  <Card title="TypeScript / Node.js" icon="js" href="/sdks/typescript">
+    Integración para backend y frontend con soporte completo de tipos.
+  </Card>
+  <Card title="Python" icon="python" href="/sdks/python">
+    Librería ligera para Python 3.8+.
+  </Card>
+  <Card title="PHP" icon="php" href="/sdks/php">
+    Compatible con Composer para aplicaciones Laravel, Symfony y PHP puro.
+  </Card>
+  <Card title="Dart / Flutter" icon="mobile-screen" href="/sdks/dart">
+    SDK optimizado para aplicaciones móviles con Flutter.
+  </Card>
+</CardGroup>
+
+### Características comunes
+
+Todos los SDKs oficiales de VenePagos incluyen:
+
+- **Autenticación simplificada**: Manejo automático de Bearer tokens.
+- **Entornos**: Soporte nativo para `live` y `test` (sandbox).
+- **Manejo de errores**: Excepciones descriptivas para facilitar la depuración.
+- **Tipado fuerte**: Interfaces y modelos de datos completos.
+- **Validación**: Validación previa de parámetros comunes como RIF y cuentas bancarias.
+
+<Tip>
+  Si prefieres no usar un SDK, siempre puedes consumir nuestra [API REST](/api-reference/introduction) directamente.
+</Tip>

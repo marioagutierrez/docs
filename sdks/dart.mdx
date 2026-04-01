@@ -1,0 +1,56 @@
+---
+title: "Dart / Flutter"
+description: "SDK oficial de VenePagos para aplicaciones móviles con Flutter."
+---
+
+### Instalación
+
+Añade la dependencia a tu `pubspec.yaml`:
+
+```yaml
+dependencies:
+  venepagos_sdk: ^1.0.0
+```
+
+O usa el comando:
+
+```bash
+flutter pub add venepagos_sdk
+```
+
+### Uso básico
+
+```dart
+import 'package:venepagos_sdk/venepagos_sdk.dart';
+
+final client = VenePagos(
+  apiKey: 'vp_live_xxxxxxxx',
+  environment: VenePagosEnvironment.live,
+);
+
+void checkRates() async {
+  try {
+    final rates = await client.bank.getRates();
+    print('Tasa BCV: ${rates.usd}');
+  } catch (e) {
+    print('Error: $e');
+  }
+}
+```
+
+### Gestión de Pagos Móviles (P2P)
+
+El SDK de Dart incluye validaciones de formato venezolanas para facilitar el desarrollo de apps de cobro:
+
+```dart
+final response = await client.bank.p2p(
+  phone: '04121234567',
+  bankCode: '0102',
+  amount: 25.0,
+  document: 'V12345678',
+);
+```
+
+### Notificaciones Push
+
+El SDK soporta la obtención de tokens para notificaciones push integradas con Firebase o Expo.

@@ -1,68 +1,161 @@
 {
   "$schema": "https://mintlify.com/docs.json",
   "theme": "mint",
-  "name": "Mint Starter Kit",
+  "name": "VenePagos",
   "colors": {
-    "primary": "#16A34A",
+    "primary": "#1078FF",
     "light": "#07C983",
-    "dark": "#15803D"
+    "dark": "#1078FF"
   },
   "favicon": "/favicon.svg",
   "navigation": {
     "tabs": [
       {
-        "tab": "Guides",
+        "tab": "Guías",
         "groups": [
           {
-            "group": "Getting started",
+            "group": "Empezar",
             "pages": [
               "index",
               "quickstart",
-              "development"
+              "autenticacion"
             ]
           },
           {
-            "group": "Customization",
+            "group": "Conceptos",
             "pages": [
-              "essentials/settings",
-              "essentials/navigation"
+              "conceptos/merchants",
+              "conceptos/payment-links",
+              "conceptos/sandbox"
             ]
           },
           {
-            "group": "Writing content",
+            "group": "Integraciones",
             "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
+              "integraciones/webhooks",
+              "integraciones/seguridad",
+              "integraciones/errores"
             ]
           }
         ]
       },
       {
-        "tab": "API reference",
+        "tab": "SDKs",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Librerías",
+            "pages": [
+              "sdks/introduction",
+              "sdks/typescript",
+              "sdks/python",
+              "sdks/php",
+              "sdks/dart"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "Plugins",
+        "groups": [
+          {
+            "group": "E-commerce",
+            "pages": [
+              "plugins/introduction",
+              "plugins/woocommerce",
+              "plugins/shopify"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "Introducción",
             "pages": [
               "api-reference/introduction"
             ]
           },
           {
-            "group": "Endpoint examples",
+            "group": "Autenticación",
             "pages": [
-              "api-reference/endpoint/get",
-              "api-reference/endpoint/create",
-              "api-reference/endpoint/delete",
-              "api-reference/endpoint/webhook"
+              "api-reference/auth/register",
+              "api-reference/auth/login",
+              "api-reference/auth/refresh",
+              "api-reference/auth/logout",
+              "api-reference/auth/me",
+              "api-reference/auth/verify-email",
+              "api-reference/auth/resend-verification",
+              "api-reference/auth/forgot-password",
+              "api-reference/auth/reset-password"
+            ]
+          },
+          {
+            "group": "Merchants",
+            "pages": [
+              "api-reference/merchants/list",
+              "api-reference/merchants/create",
+              "api-reference/merchants/get",
+              "api-reference/merchants/update",
+              "api-reference/merchants/members",
+              "api-reference/merchants/invite",
+              "api-reference/merchants/store"
+            ]
+          },
+          {
+            "group": "Operaciones Bancarias",
+            "pages": [
+              "api-reference/bank/accounts",
+              "api-reference/bank/transactions",
+              "api-reference/bank/codes",
+              "api-reference/bank/rates",
+              "api-reference/bank/transfer",
+              "api-reference/bank/transfer-status",
+              "api-reference/bank/p2p"
+            ]
+          },
+          {
+            "group": "API Keys",
+            "pages": [
+              "api-reference/api-keys/list",
+              "api-reference/api-keys/create",
+              "api-reference/api-keys/delete"
+            ]
+          },
+          {
+            "group": "Notificaciones",
+            "pages": [
+              "api-reference/notifications/list",
+              "api-reference/notifications/unread-count",
+              "api-reference/notifications/read-all",
+              "api-reference/notifications/delete",
+              "api-reference/notifications/push-token"
+            ]
+          },
+          {
+            "group": "Invitaciones",
+            "pages": [
+              "api-reference/invitations/get",
+              "api-reference/invitations/accept"
+            ]
+          },
+          {
+            "group": "Admin",
+            "pages": [
+              "api-reference/admin/dashboard",
+              "api-reference/admin/users",
+              "api-reference/admin/merchants",
+              "api-reference/admin/payment-links",
+              "api-reference/admin/transactions",
+              "api-reference/admin/webhooks",
+              "api-reference/admin/audit-logs"
+            ]
+          },
+          {
+            "group": "Sandbox",
+            "pages": [
+              "api-reference/sandbox/introduction",
+              "api-reference/sandbox/pay"
             ]
           }
         ]
@@ -71,14 +164,14 @@
     "global": {
       "anchors": [
         {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
+          "anchor": "API Reference",
+          "href": "/api-reference/introduction",
+          "icon": "code"
         },
         {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
+          "anchor": "Soporte",
+          "href": "mailto:soporte@venepagos.com",
+          "icon": "envelope"
         }
       ]
     }
@@ -90,33 +183,26 @@
   "navbar": {
     "links": [
       {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "label": "Soporte",
+        "href": "mailto:soporte@venepagos.com"
       }
     ],
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
+      "href": "https://venepagos.com.ve"
     }
-  },
-  "contextual": {
-    "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "website": "https://venepagos.com.ve"
+    }
+  },
+  "api": {
+    "baseUrl": "https://api.venepagos.com.ve/api/v1",
+    "auth": {
+      "method": "bearer",
+      "name": "Authorization"
     }
   }
 }

@@ -1,0 +1,52 @@
+---
+title: "Listar webhooks"
+api: "GET /admin/webhooks"
+description: "Retorna todos los endpoints de webhooks registrados en la plataforma. Requiere rol ADMIN."
+---
+
+<Note>
+  Este endpoint requiere autenticación con Bearer token y rol **ADMIN**.
+</Note>
+
+### Parámetros de consulta
+
+<ParamField query="userId" type="string">
+  Filtrar por ID de usuario.
+</ParamField>
+
+<ParamField query="active" type="boolean">
+  Filtrar por webhooks activos o inactivos.
+</ParamField>
+
+<ParamField query="page" type="integer" default="1">
+  Número de página para la paginación.
+</ParamField>
+
+<ParamField query="limit" type="integer" default="50">
+  Cantidad de resultados por página.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="data" type="array">
+  Lista de configuraciones de webhooks.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "id": "whk_abc123",
+      "url": "https://mi-servidor.com/webhook",
+      "events": ["transaction.success", "transaction.failed"],
+      "active": true,
+      "environment": "live"
+    }
+  ],
+  "page": 1,
+  "limit": 50,
+  "total": 42
+}
+```
+</ResponseExample>

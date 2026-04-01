@@ -1,0 +1,75 @@
+---
+title: "Historial de transacciones"
+api: "GET https://api.venepagos.com.ve/api/v1/bank/accounts/{account}/transactions"
+description: "Obtiene el historial de transacciones de una cuenta bancaria específica."
+---
+
+<Note>
+  Este endpoint requiere autenticación mediante Bearer token.
+</Note>
+
+<ParamField path="account" type="string" required>
+  Identificador de la cuenta bancaria.
+</ParamField>
+
+<ParamField query="page" type="integer">
+  Número de página para la paginación. Por defecto `1`.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Cantidad de resultados por página. Por defecto `20`.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filtrar por estado de la transacción (`success`, `failed`, `pending`).
+</ParamField>
+
+<ParamField query="environment" type="string">
+  Filtrar por entorno (`sandbox`, `production`).
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="id" type="string">
+  Identificador único de la transacción.
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  Tipo de transacción (`transfer`, `p2p`, `deposit`).
+</ResponseField>
+
+<ResponseField name="amount" type="number">
+  Monto de la transacción en bolívares.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Estado de la transacción (`success`, `failed`, `pending`).
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Fecha y hora de creación en formato ISO 8601.
+</ResponseField>
+
+<ResponseField name="environment" type="string">
+  Entorno en el que se realizó la transacción (`sandbox`, `production`).
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "data": [
+    {
+      "id": "txn_01HQXK5M8R",
+      "type": "transfer",
+      "amount": 150.00,
+      "status": "success",
+      "createdAt": "2026-03-30T14:22:00Z",
+      "environment": "production"
+    }
+  ],
+  "page": 1,
+  "limit": 20,
+  "total": 1
+}
+```
+</ResponseExample>

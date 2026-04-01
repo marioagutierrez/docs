@@ -1,0 +1,27 @@
+---
+title: "Verificar email"
+api: "POST /auth/verify-email"
+description: "Verifica el correo electrónico del usuario mediante un código OTP de 6 dígitos."
+---
+
+<ParamField body="email" type="string" required>
+  Correo electrónico del usuario a verificar.
+</ParamField>
+
+<ParamField body="otp" type="string" required>
+  Código de verificación de 6 dígitos enviado al correo electrónico.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="message" type="string">
+  Mensaje de confirmación de la verificación.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "message": "Correo electrónico verificado exitosamente."
+}
+```
+</ResponseExample>

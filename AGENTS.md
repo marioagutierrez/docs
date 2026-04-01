@@ -14,20 +14,22 @@
 
 ## Terminology
 
-{/* Add product-specific terms and preferred usage */}
-{/* Example: Use "workspace" not "project", "member" not "user" */}
+- Use **Merchant** instead of "User" when referring to the business entity.
+- Use **Member** for individuals within a merchant team.
+- Use **Payment Link** to refer to checkout URLs.
+- Use **Environment** (Live/Test) instead of "Mode".
 
 ## Style preferences
 
-{/* Add any project-specific style rules below */}
-
-- Use active voice and second person ("you")
-- Keep sentences concise — one idea per sentence
-- Use sentence case for headings
-- Bold for UI elements: Click **Settings**
-- Code formatting for file names, commands, paths, and code references
+- **Language**: All documentation must be in **Spanish** unless otherwise specified.
+- Use active voice and second person ("tú").
+- Keep sentences concise — one idea per sentence.
+- Use sentence case for headings.
+- Bold for UI elements: Haz clic en **Configuración**.
+- Code formatting for file names, commands, paths, and code references.
 
 ## Content boundaries
 
-{/* Define what should and shouldn't be documented */}
-{/* Example: Don't document internal admin features */}
+- Focus on external API consumers and merchant integrators.
+- Do not document internal infrastructure or sensitive security protocols.
+- Administrator-only features should be clearly marked with an "Admin" tag.

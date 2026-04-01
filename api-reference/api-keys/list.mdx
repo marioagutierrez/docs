@@ -1,0 +1,54 @@
+---
+title: "Listar API keys"
+api: "GET /api-keys"
+description: "Obtiene la lista de API keys del usuario autenticado."
+---
+
+<Note>
+  Requiere autenticación con Bearer token.
+</Note>
+
+### Respuesta
+
+La respuesta es un array de objetos con la siguiente estructura:
+
+<ResponseField name="id" type="string">
+  Identificador único de la API key.
+</ResponseField>
+
+<ResponseField name="key" type="string">
+  API key enmascarada (ej: `vp_****abcd`). Por seguridad, la key completa solo se muestra al momento de crearla.
+</ResponseField>
+
+<ResponseField name="active" type="boolean">
+  Indica si la API key está activa.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Fecha de creación en formato ISO 8601.
+</ResponseField>
+
+<ResponseField name="environment" type="string">
+  Entorno de la API key: `sandbox` o `production`.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+[
+  {
+    "id": "ak_1a2b3c4d",
+    "key": "vp_****abcd",
+    "active": true,
+    "createdAt": "2026-01-15T10:30:00Z",
+    "environment": "production"
+  },
+  {
+    "id": "ak_5e6f7g8h",
+    "key": "vp_****efgh",
+    "active": false,
+    "createdAt": "2025-12-01T08:00:00Z",
+    "environment": "sandbox"
+  }
+]
+```
+</ResponseExample>

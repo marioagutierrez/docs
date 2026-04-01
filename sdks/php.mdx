@@ -1,0 +1,50 @@
+---
+title: "PHP"
+description: "SDK oficial de VenePagos para PHP."
+---
+
+### Instalación
+
+Instala el SDK vía Composer:
+
+```bash
+composer require venepagos/venepagos-php
+```
+
+### Uso básico
+
+```php
+require 'vendor/autoload.php';
+
+use VenePagos\Client;
+
+$client = new Client('vp_live_xxxxxxxx', 'live');
+
+try {
+    // Consultar tasas
+    $rates = $client->bank->getRates();
+    echo "Tasa USD: " . $rates['USD'];
+
+    // Ejecutar Transferencia
+    $transfer = $client->bank->transfer([
+        'destination_bank' => '0102',
+        'destination_account' => '01020000000000000000',
+        'amount' => 100.50,
+        'description' => 'Pago de factura'
+    ]);
+    
+} catch (\Exception $e) {
+    echo "Error: " . $e->getMessage();
+}
+```
+
+### Integración con Laravel
+
+Puedes añadir la API Key a tu archivo `.env`:
+
+```env
+VENEPAGOS_API_KEY=vp_live_xxxxxxxx
+VENEPAGOS_ENVIRONMENT=live
+```
+
+Y usar el Service Provider incluido (próximamente) o instanciarlo en un Singleton.

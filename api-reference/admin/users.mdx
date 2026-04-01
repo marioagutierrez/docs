@@ -1,0 +1,151 @@
+---
+title: "Gestión de usuarios"
+api: "GET /admin/users"
+description: "Endpoints para la gestión de usuarios de la plataforma. Requiere rol ADMIN."
+---
+
+<Note>
+  Requiere autenticación con Bearer token y rol **ADMIN**.
+</Note>
+
+## Listar usuarios
+
+<ParamField query="page" type="integer">
+  Número de página. Por defecto `1`.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Cantidad de resultados por página. Por defecto `20`.
+</ParamField>
+
+<ParamField query="search" type="string">
+  Texto de búsqueda por nombre o email.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filtrar por estado del usuario: `active`, `inactive`, `suspended`.
+</ParamField>
+
+<ParamField query="kycStatus" type="string">
+  Filtrar por estado de KYC: `pending`, `approved`, `rejected`.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="data" type="array">
+  Lista paginada de usuarios.
+</ResponseField>
+
+<ResponseField name="page" type="integer">
+  Página actual.
+</ResponseField>
+
+<ResponseField name="limit" type="integer">
+  Cantidad de resultados por página.
+</ResponseField>
+
+<ResponseField name="total" type="integer">
+  Total de usuarios que coinciden con los filtros.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "id": "usr_abc123",
+      "name": "Juan Pérez",
+      "email": "juan@ejemplo.com",
+      "status": "active",
+      "kycStatus": "approved",
+      "createdAt": "2026-01-10T08:00:00Z"
+    }
+  ],
+  "page": 1,
+  "limit": 20,
+  "total": 1
+}
+```
+</ResponseExample>
+
+---
+
+## Obtener usuario por ID
+
+```
+GET /admin/users/{id}
+```
+
+<ParamField path="id" type="string" required>
+  Identificador único del usuario.
+</ParamField>
+
+Retorna el detalle completo de un usuario específico.
+
+<ResponseExample>
+```json 200
+{
+  "id": "usr_abc123",
+  "name": "Juan Pérez",
+  "email": "juan@ejemplo.com",
+  "status": "active",
+  "kycStatus": "approved",
+  "createdAt": "2026-01-10T08:00:00Z",
+  "lastLoginAt": "2026-03-30T12:00:00Z"
+}
+```
+</ResponseExample>
+
+---
+
+## Actualizar estado de usuario
+
+```
+PUT /admin/users/{id}/status
+```
+
+<ParamField path="id" type="string" required>
+  Identificador único del usuario.
+</ParamField>
+
+<ParamField body="status" type="string" required>
+  Nuevo estado del usuario: `ACTIVE`, `SUSPENDED`, `BANNED`.
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "message": "Estado del usuario actualizado exitosamente.",
+  "status": "SUSPENDED"
+}
+```
+</ResponseExample>
+
+---
+
+## Actualizar estado de KYC
+
+```
+PUT /admin/users/{id}/kyc
+```
+
+<ParamField path="id" type="string" required>
+  Identificador único del usuario.
+</ParamField>
+
+<ParamField body="kycStatus" type="string" required>
+  Nuevo estado de KYC: `APPROVED`, `REJECTED`, `PENDING`, `NOT_STARTED`.
+</ParamField>
+
+<ParamField body="reason" type="string">
+  Razón del cambio de estado (requerido si se rechaza).
+</ParamField>
+
+<ResponseExample>
+```json 200
+{
+  "message": "Estado de KYC actualizado exitosamente.",
+  "kycStatus": "APPROVED"
+}
+```
+</ResponseExample>

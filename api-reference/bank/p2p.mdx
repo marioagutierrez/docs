@@ -1,0 +1,55 @@
+---
+title: "Pago móvil (C2P)"
+api: "POST https://api.venepagos.com.ve/api/v1/bank/p2p"
+description: "Realiza un pago móvil (C2P) a un número de teléfono venezolano."
+---
+
+<Note>
+  Este endpoint requiere autenticación mediante Bearer token.
+</Note>
+
+<ParamField body="account_number" type="string" required>
+  Número de cuenta origen registrada en tu cuenta de VenePagos.
+</ParamField>
+
+<ParamField body="phone" type="string" required>
+  Número de teléfono del destinatario en formato venezolano (ejemplo: `04121234567`).
+</ParamField>
+
+<ParamField body="amount" type="number" required>
+  Monto a enviar en bolívares.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="id" type="string">
+  Identificador único del pago móvil.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Estado del pago (`success`, `failed`, `pending`).
+</ResponseField>
+
+<ResponseField name="amount" type="number">
+  Monto enviado en bolívares.
+</ResponseField>
+
+<ResponseField name="phone" type="string">
+  Número de teléfono del destinatario.
+</ResponseField>
+
+<ResponseField name="reference" type="string">
+  Número de referencia del pago móvil.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "id": "p2p_01HQXK9R5V",
+  "status": "success",
+  "amount": 50.00,
+  "phone": "04121234567",
+  "reference": "20260331000067890"
+}
+```
+</ResponseExample>

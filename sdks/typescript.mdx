@@ -1,0 +1,50 @@
+---
+title: "TypeScript / Node.js"
+description: "SDK oficial de VenePagos para entornos JavaScript y TypeScript."
+---
+
+### Instalación
+
+Instala el paquete usando npm o yarn:
+
+```bash
+npm install @venepagos/sdk
+```
+
+### Uso básico
+
+```typescript
+import { VenePagos } from '@venepagos/sdk';
+
+const client = new VenePagos({
+  apiKey: 'vp_live_xxxxxxxx',
+  environment: 'live' // 'live' o 'test'
+});
+
+async function run() {
+  try {
+    // Obtener información del usuario actual
+    const me = await client.auth.getMe();
+    console.log(`Hola, ${me.name}`);
+
+    // Consultar tasas del BCV
+    const rates = await client.bank.getRates();
+    console.log('Tasas actuales:', rates);
+  } catch (error) {
+    console.error('Error:', error.message);
+  }
+}
+
+run();
+```
+
+### Funciones principales
+
+- `client.auth`: Registro, login, gestión de perfil.
+- `client.merchants`: Gestión de comercios y miembros.
+- `client.bank`: Cuentas, transferencias y pagos móviles.
+- `client.notifications`: Suscripción a notificaciones push.
+
+### Sandbox
+
+Para usar el entorno de pruebas, inicializa el cliente con `environment: 'test'` y usa una API key con prefijo `vp_test_`.

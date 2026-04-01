@@ -1,0 +1,65 @@
+---
+title: "Listar payment links"
+api: "GET /admin/payment-links"
+description: "Retorna todos los payment links de la plataforma con filtros. Requiere rol ADMIN."
+---
+
+<Note>
+  Este endpoint requiere autenticación con Bearer token y rol **ADMIN**.
+</Note>
+
+### Parámetros de consulta
+
+<ParamField query="environment" type="string">
+  Filtrar por ambiente (`live` o `test`).
+</ParamField>
+
+<ParamField query="merchantId" type="string">
+  Filtrar por ID del merchant.
+</ParamField>
+
+<ParamField query="active" type="boolean">
+  Filtrar por links activos o inactivos.
+</ParamField>
+
+<ParamField query="page" type="integer" default="1">
+  Número de página para la paginación.
+</ParamField>
+
+<ParamField query="limit" type="integer" default="50">
+  Cantidad de resultados por página.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="data" type="array">
+  Lista de objetos payment link.
+</ResponseField>
+
+<ResponseField name="page" type="integer">
+  Página actual.
+</ResponseField>
+
+<ResponseField name="total" type="integer">
+  Total de registros encontrados.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "id": "plk_abc123",
+      "merchantId": "mch_xyz789",
+      "amount": 150.00,
+      "currency": "VES",
+      "status": "ACTIVE",
+      "environment": "live"
+    }
+  ],
+  "page": 1,
+  "limit": 50,
+  "total": 125
+}
+```
+</ResponseExample>

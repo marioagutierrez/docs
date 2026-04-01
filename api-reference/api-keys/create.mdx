@@ -1,0 +1,42 @@
+---
+title: "Crear API key"
+api: "POST /api-keys"
+description: "Crea una nueva API key. La key completa solo se muestra una vez en la respuesta."
+---
+
+<Note>
+  Requiere autenticación con Bearer token.
+</Note>
+
+<Warning>
+  La API key completa solo se muestra en la respuesta de creación. Asegúrate de copiarla y almacenarla de forma segura.
+</Warning>
+
+### Respuesta
+
+<ResponseField name="id" type="string">
+  Identificador único de la API key.
+</ResponseField>
+
+<ResponseField name="key" type="string">
+  API key completa. Solo se muestra una vez al momento de la creación.
+</ResponseField>
+
+<ResponseField name="active" type="boolean">
+  Indica si la API key está activa. Por defecto es `true`.
+</ResponseField>
+
+<ResponseField name="environment" type="string">
+  Entorno de la API key: `sandbox` o `production`.
+</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "id": "ak_1a2b3c4d",
+  "key": "vp_live_a1b2c3d4e5f6g7h8i9j0k1l2m3n4o5p6",
+  "active": true,
+  "environment": "production"
+}
+```
+</ResponseExample>

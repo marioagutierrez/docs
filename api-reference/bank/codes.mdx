@@ -1,0 +1,50 @@
+---
+title: "Códigos de bancos"
+api: "GET https://api.venepagos.com.ve/api/v1/bank/codes"
+description: "Obtiene la lista de códigos de bancos venezolanos."
+---
+
+<Note>
+  Este endpoint requiere autenticación mediante Bearer token.
+</Note>
+
+### Respuesta
+
+<ResponseField name="code" type="string">
+  Código del banco (4 dígitos).
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Nombre del banco.
+</ResponseField>
+
+<ResponseExample>
+```json
+[
+  {
+    "code": "0102",
+    "name": "Banco de Venezuela"
+  },
+  {
+    "code": "0104",
+    "name": "Venezolano de Crédito"
+  },
+  {
+    "code": "0105",
+    "name": "Banco Mercantil"
+  },
+  {
+    "code": "0108",
+    "name": "Banco Provincial"
+  },
+  {
+    "code": "0134",
+    "name": "Banesco"
+  },
+  {
+    "code": "0175",
+    "name": "Banco Bicentenario"
+  }
+]
+```
+</ResponseExample>

@@ -1,0 +1,79 @@
+---
+title: "Merchants"
+description: "Gestiona tus negocios y tiendas en VenePagos"
+---
+
+## Qué es un Merchant
+
+Un **merchant** representa un negocio o comercio dentro de VenePagos. Cada merchant tiene su propia configuración, miembros, tienda y transacciones.
+
+Un usuario puede crear múltiples merchants para gestionar diferentes negocios desde una sola cuenta.
+
+## Crear un merchant
+
+```bash
+curl -X POST https://api.venepagos.com.ve/api/v1/merchants \
+  -H "Authorization: Bearer TU_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "Mi Tienda Online",
+    "rif": "J-12345678-9",
+    "description": "Venta de productos electrónicos"
+  }'
+```
+
+### Respuesta
+
+```json
+{
+  "id": "mch_abc123",
+  "name": "Mi Tienda Online",
+  "rif": "J-12345678-9",
+  "description": "Venta de productos electrónicos",
+  "owner": "usr_xyz789",
+  "status": "ACTIVE"
+}
+```
+
+## Miembros y roles
+
+Puedes invitar a otros usuarios a tu merchant con diferentes roles:
+
+| Rol | Permisos |
+|-----|----------|
+| **OWNER** | Control total del merchant |
+| **ADMIN** | Gestión de configuración y miembros |
+| **MEMBER** | Ver transacciones y datos básicos |
+
+### Invitar un miembro
+
+```bash
+curl -X POST https://api.venepagos.com.ve/api/v1/merchants/mch_abc123/invitations \
+  -H "Authorization: Bearer TU_ACCESS_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "colaborador@email.com",
+    "role": "ADMIN"
+  }'
+```
+
+El invitado recibirá un email con un link para aceptar la invitación.
+
+## Configuración de tienda
+
+Cada merchant puede tener una **tienda** con personalización visual:
+
+- **Logo** - Imagen de tu marca
+- **Banner** - Imagen de cabecera
+- **Links de pago** - URLs personalizadas para compartir
+
+```bash
+# Subir logo
+curl -X POST https://api.venepagos.com.ve/api/v1/merchants/mch_abc123/store/logo \
+  -H "Authorization: Bearer TU_ACCESS_TOKEN" \
+  -F "file=@logo.png"
+
+# Obtener links de la tienda
+curl https://api.venepagos.com.ve/api/v1/merchants/mch_abc123/store/links \
+  -H "Authorization: Bearer TU_ACCESS_TOKEN"
+```

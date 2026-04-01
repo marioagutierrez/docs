@@ -1,0 +1,31 @@
+---
+title: "Registrar push token"
+api: "POST /notifications/push-tokens"
+description: "Registra un token de notificaciones push para el dispositivo del usuario."
+---
+
+<Note>
+  Requiere autenticación con Bearer token.
+</Note>
+
+<ParamField body="token" type="string" required>
+  Token del dispositivo para notificaciones push (FCM o APNs).
+</ParamField>
+
+<ParamField body="platform" type="string" required>
+  Plataforma del dispositivo. Valores permitidos: `ios`, `android`.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="message" type="string">
+  Mensaje de confirmación del registro.
+</ResponseField>
+
+<ResponseExample>
+```json 201
+{
+  "message": "Push token registrado exitosamente."
+}
+```
+</ResponseExample>

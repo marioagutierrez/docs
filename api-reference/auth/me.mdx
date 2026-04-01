@@ -1,0 +1,48 @@
+---
+title: "Perfil del usuario"
+api: "GET /auth/me"
+description: "Obtiene la información del perfil del usuario autenticado."
+---
+
+<Note>
+  Este endpoint requiere autenticación. Incluye el header `Authorization: Bearer {accessToken}`.
+</Note>
+
+### Respuesta
+
+<ResponseField name="id" type="string">
+  Identificador único del usuario.
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  Correo electrónico del usuario.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Nombre completo del usuario.
+</ResponseField>
+
+<ResponseField name="role" type="string">
+  Rol asignado al usuario (por ejemplo, `user`, `admin`).
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Estado de la cuenta del usuario (por ejemplo, `active`, `suspended`).
+</ResponseField>
+
+<ResponseField name="kycStatus" type="string">
+  Estado de la verificación KYC del usuario (por ejemplo, `pending`, `approved`, `rejected`).
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "id": "usr_abc123",
+  "email": "usuario@ejemplo.com",
+  "name": "Juan Pérez",
+  "role": "user",
+  "status": "active",
+  "kycStatus": "approved"
+}
+```
+</ResponseExample>

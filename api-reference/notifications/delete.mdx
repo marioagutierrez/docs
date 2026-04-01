@@ -1,0 +1,27 @@
+---
+title: "Eliminar notificación"
+api: "DELETE /notifications/{id}"
+description: "Elimina una notificación específica del usuario autenticado."
+---
+
+<Note>
+  Requiere autenticación con Bearer token.
+</Note>
+
+<ParamField path="id" type="string" required>
+  Identificador único de la notificación a eliminar.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="message" type="string">
+  Mensaje de confirmación de la eliminación.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "message": "Notificación eliminada exitosamente."
+}
+```
+</ResponseExample>

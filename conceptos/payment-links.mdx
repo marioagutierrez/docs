@@ -1,0 +1,52 @@
+---
+title: "Links de pago"
+description: "Crea y comparte links de pago personalizados sin escribir código"
+---
+
+## Qué son los links de pago
+
+Los links de pago son URLs únicas que puedes compartir con tus clientes para recibir pagos. No requieren integración técnica, son ideales para:
+
+- Ventas por redes sociales (Instagram, Facebook)
+- Cobros por WhatsApp
+- Facturas enviadas por email
+- Pagos presenciales con QR
+
+## Cómo funcionan
+
+1. Creas un link de pago con un monto y descripción
+2. Compartes el link con tu cliente
+3. El cliente abre el link y realiza el pago
+4. Recibes una notificación y el dinero en tu cuenta
+
+## Crear un link de pago
+
+Desde el dashboard de tu merchant, o programáticamente:
+
+```bash
+# Obtener los links de tu tienda
+curl https://api.venepagos.com.ve/api/v1/merchants/mch_abc123/store/links \
+  -H "Authorization: Bearer TU_ACCESS_TOKEN"
+```
+
+## Personalización
+
+Cada link de pago puede incluir:
+
+- **Monto fijo** o variable (el cliente elige cuánto pagar)
+- **Descripción** del producto o servicio
+- **Branding** con el logo y colores de tu merchant
+- **Referencia** para identificar la transacción
+
+## Canales de distribución
+
+| Canal | Uso |
+|-------|-----|
+| **WhatsApp** | Envío directo al chat del cliente |
+| **Email** | Incluido en facturas o correos de cobro |
+| **Redes sociales** | Publicado en stories, posts o bio |
+| **QR** | Generado automáticamente para pagos presenciales |
+
+<Info>
+  Los links de pago funcionan tanto en el entorno de producción como en sandbox. En sandbox, las transacciones no son reales.
+</Info>

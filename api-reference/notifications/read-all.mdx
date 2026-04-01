@@ -1,0 +1,23 @@
+---
+title: "Marcar todas como leídas"
+api: "PUT /notifications/read-all"
+description: "Marca todas las notificaciones del usuario autenticado como leídas."
+---
+
+<Note>
+  Requiere autenticación con Bearer token.
+</Note>
+
+### Respuesta
+
+<ResponseField name="message" type="string">
+  Mensaje de confirmación.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "message": "Todas las notificaciones han sido marcadas como leídas."
+}
+```
+</ResponseExample>

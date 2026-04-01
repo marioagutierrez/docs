@@ -1,0 +1,62 @@
+---
+title: "Crear merchant"
+api: "POST https://api.venepagos.com.ve/api/v1/merchants"
+description: "Crea un nuevo merchant asociado a tu cuenta."
+---
+
+## Autenticación
+
+Este endpoint requiere autenticación mediante Bearer token.
+
+## Cuerpo de la solicitud
+
+<ParamField body="name" type="string" required>
+  Nombre del merchant.
+</ParamField>
+
+<ParamField body="rif" type="string" required>
+  RIF del merchant. Debe ser un RIF válido venezolano (ej. `J-12345678-9`).
+</ParamField>
+
+<ParamField body="description" type="string">
+  Descripción del merchant.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="id" type="string">
+  Identificador único del merchant creado.
+</ResponseField>
+
+<ResponseField name="name" type="string">
+  Nombre del merchant.
+</ResponseField>
+
+<ResponseField name="rif" type="string">
+  RIF del merchant.
+</ResponseField>
+
+<ResponseField name="description" type="string">
+  Descripción del merchant.
+</ResponseField>
+
+<ResponseField name="owner" type="string">
+  ID del usuario propietario del merchant.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Estado del merchant (`ACTIVE` o `INACTIVE`).
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "id": "mrc_abc123",
+  "name": "Mi Tienda",
+  "rif": "J-12345678-9",
+  "description": "Tienda de ejemplo",
+  "owner": "usr_xyz789",
+  "status": "ACTIVE"
+}
+```
+</ResponseExample>

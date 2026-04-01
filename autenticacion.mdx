@@ -1,0 +1,114 @@
+---
+title: "Autenticación"
+description: "Cómo autenticarte con la API de VenePagos usando JWT"
+---
+
+## Flujo de autenticación
+
+VenePagos usa **Bearer tokens (JWT)** para autenticar las peticiones a la API. El flujo es:
+
+1. Haces login con email y password
+2. Recibes un `accessToken` (válido 24 horas) y un `refreshToken` (válido 7 días)
+3. Envías el `accessToken` en el header `Authorization` de cada petición
+4. Cuando el token expira, usas el `refreshToken` para obtener uno nuevo
+
+## Obtener tokens
+
+<CodeGroup>
+```bash cURL
+curl -X POST https://api.venepagos.com.ve/api/v1/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "tu@email.com",
+    "password": "tuPassword"
+  }'
+```
+
+```javascript Node.js
+const response = await fetch('https://api.venepagos.com.ve/api/v1/auth/login', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    email: 'tu@email.com',
+    password: 'tuPassword'
+  })
+});
+
+const { accessToken, refreshToken } = await response.json();
+```
+
+```python Python
+import requests
+
+response = requests.post('https://api.venepagos.com.ve/api/v1/auth/login', json={
+    'email': 'tu@email.com',
+    'password': 'tuPassword'
+})
+
+tokens = response.json()
+access_token = tokens['accessToken']
+refresh_token = tokens['refreshToken']
+```
+</CodeGroup>
+
+### Respuesta
+
+```json
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIs...",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIs...",
+  "user": {
+    "id": "usr_abc123",
+    "email": "tu@email.com",
+    "name": "Tu Nombre",
+    "role": "USER",
+    "status": "ACTIVE",
+    "kycStatus": "VERIFIED"
+  }
+}
+```
+
+## Usar el token
+
+Incluye el token en el header `Authorization` con el prefijo `Bearer`:
+
+```bash
+curl https://api.venepagos.com.ve/api/v1/merchants \
+  -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIs..."
+```
+
+## Renovar el token
+
+Cuando tu `accessToken` expire (después de 24 horas), usa el `refreshToken`:
+
+```bash
+curl -X POST https://api.venepagos.com.ve/api/v1/auth/refresh \
+  -H "Content-Type: application/json" \
+  -d '{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIs..."
+  }'
+```
+
+<Warning>
+  Si el `refreshToken` también expira (7 días), el usuario debe hacer login de nuevo.
+</Warning>
+
+## API Keys
+
+Para integraciones server-to-server, puedes crear API keys que no expiran:
+
+```bash
+curl -X POST https://api.venepagos.com.ve/api/v1/api-keys \
+  -H "Authorization: Bearer TU_ACCESS_TOKEN"
+```
+
+Las API keys se envían en el mismo header `Authorization`:
+
+```bash
+curl https://api.venepagos.com.ve/api/v1/bank/rates \
+  -H "Authorization: Bearer vp_live_abc123..."
+```
+
+<Info>
+  Las API keys con prefijo `vp_test_` solo funcionan en el entorno sandbox. Las de prefijo `vp_live_` operan en producción.
+</Info>

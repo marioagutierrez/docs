@@ -1,0 +1,52 @@
+---
+title: "Python"
+description: "SDK oficial de VenePagos para Python 3.8+."
+---
+
+### Instalación
+
+Instala el paquete usando pip:
+
+```bash
+pip install venepagos-sdk
+```
+
+### Uso básico
+
+```python
+from venepagos import VenePagos
+
+client = VenePagos(
+    api_key='vp_live_xxxxxxxx',
+    environment='live' # O 'test' para sandbox
+)
+
+try:
+    # Consultar tasas del BCV
+    rates = client.bank.get_rates()
+    print(f"Dólar BCV: {rates['USD']}")
+
+    # Listar merchants
+    merchants = client.merchants.list()
+    for m in merchants['data']:
+        print(f"Merchant: {m['name']}")
+        
+except Exception as e:
+    print(f"Error en la API: {str(e)}")
+```
+
+### Requisitos
+
+- Python 3.8 o superior.
+- Una API Key válida de VenePagos.
+
+### Soporte para Async
+
+Si usas frameworks como FastAPI o Sanic, puedes usar la versión asíncrona:
+
+```python
+from venepagos.aio import VenePagos
+
+client = VenePagos(api_key='vp_live_xxx')
+rates = await client.bank.get_rates()
+```

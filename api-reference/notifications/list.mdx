@@ -1,0 +1,67 @@
+---
+title: "Listar notificaciones"
+api: "GET /notifications"
+description: "Obtiene la lista paginada de notificaciones del usuario autenticado."
+---
+
+<Note>
+  Requiere autenticación con Bearer token.
+</Note>
+
+<ParamField query="page" type="integer">
+  Número de página. Por defecto `1`.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Cantidad de resultados por página. Por defecto `20`.
+</ParamField>
+
+### Respuesta
+
+La respuesta es un array de objetos con la siguiente estructura:
+
+<ResponseField name="id" type="string">
+  Identificador único de la notificación.
+</ResponseField>
+
+<ResponseField name="title" type="string">
+  Título de la notificación.
+</ResponseField>
+
+<ResponseField name="message" type="string">
+  Contenido del mensaje de la notificación.
+</ResponseField>
+
+<ResponseField name="read" type="boolean">
+  Indica si la notificación ha sido leída.
+</ResponseField>
+
+<ResponseField name="createdAt" type="string">
+  Fecha de creación en formato ISO 8601.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "id": "notif_abc123",
+      "title": "Pago recibido",
+      "message": "Se ha recibido un pago de 50.00 USD.",
+      "read": false,
+      "createdAt": "2026-03-30T14:25:00Z"
+    },
+    {
+      "id": "notif_def456",
+      "title": "KYC aprobado",
+      "message": "Tu verificación de identidad ha sido aprobada.",
+      "read": true,
+      "createdAt": "2026-03-29T09:10:00Z"
+    }
+  ],
+  "page": 1,
+  "limit": 20,
+  "total": 2
+}
+```
+</ResponseExample>

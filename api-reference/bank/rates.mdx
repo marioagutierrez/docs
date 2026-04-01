@@ -1,0 +1,33 @@
+---
+title: "Tasas de cambio BCV"
+api: "GET https://api.venepagos.com.ve/api/v1/bank/rates"
+description: "Obtiene las tasas de cambio oficiales publicadas por el Banco Central de Venezuela (BCV)."
+---
+
+<Note>
+  Este endpoint requiere autenticación mediante Bearer token.
+</Note>
+
+### Respuesta
+
+<ResponseField name="usd" type="number">
+  Tasa de cambio del dólar estadounidense en bolívares.
+</ResponseField>
+
+<ResponseField name="eur" type="number">
+  Tasa de cambio del euro en bolívares.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Fecha y hora de la última actualización en formato ISO 8601.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "usd": 78.35,
+  "eur": 85.12,
+  "updatedAt": "2026-03-31T12:00:00Z"
+}
+```
+</ResponseExample>

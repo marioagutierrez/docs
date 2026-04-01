@@ -1,0 +1,75 @@
+---
+title: "Sandbox"
+description: "Entorno de pruebas para desarrollar tu integración sin riesgo"
+---
+
+## Entorno sandbox
+
+VenePagos ofrece un entorno sandbox completo para que puedas desarrollar y probar tu integración sin procesar transacciones reales.
+
+## Cómo activar el sandbox
+
+Usa una API key con prefijo `vp_test_` en lugar de `vp_live_`:
+
+```bash
+# Sandbox
+curl https://api.venepagos.com.ve/api/v1/bank/rates \
+  -H "Authorization: Bearer vp_test_abc123..."
+
+# Producción
+curl https://api.venepagos.com.ve/api/v1/bank/rates \
+  -H "Authorization: Bearer vp_live_xyz789..."
+```
+
+## Simular resultados
+
+En sandbox puedes controlar el resultado de las transacciones usando el campo `simulate`:
+
+```bash
+curl -X POST https://api.venepagos.com.ve/api/v1/bank/transfer \
+  -H "Authorization: Bearer vp_test_abc123" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "account_number": "01020000000000000000",
+    "destination_bank": "0102",
+    "destination_account": "01340000000000000000",
+    "amount": 100.00,
+    "simulate": "success"
+  }'
+```
+
+### Valores de simulación
+
+| Valor | Resultado |
+|-------|-----------|
+| `"success"` | Transacción exitosa |
+| `"failed"` | Transacción fallida |
+| `"pending"` | Transacción queda en estado pendiente |
+
+## Diferencias con producción
+
+| Característica | Sandbox | Producción |
+|---------------|---------|------------|
+| API Keys | `vp_test_*` | `vp_live_*` |
+| Transacciones | Simuladas | Reales |
+| Dinero | No se mueve | Liquidación real |
+| Webhooks | Se disparan normalmente | Se disparan normalmente |
+| Campo `environment` | `"test"` | `"live"` |
+
+<Warning>
+  Todas las transacciones en sandbox se marcan con `environment: "test"` y no aparecen en los reportes de producción.
+</Warning>
+
+## Filtrar por entorno
+
+Puedes filtrar transacciones y datos por entorno usando el query parameter `environment`:
+
+```bash
+# Solo transacciones de prueba
+curl "https://api.venepagos.com.ve/api/v1/admin/transactions?environment=test" \
+  -H "Authorization: Bearer TU_ACCESS_TOKEN"
+
+# Solo transacciones reales
+curl "https://api.venepagos.com.ve/api/v1/admin/transactions?environment=live" \
+  -H "Authorization: Bearer TU_ACCESS_TOKEN"
+```

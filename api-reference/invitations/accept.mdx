@@ -1,0 +1,58 @@
+---
+title: "Aceptar invitación"
+api: "POST /invitations/{token}/accept"
+description: "Acepta una invitación para unirse a un merchant. Si el usuario es nuevo, debe proporcionar nombre y contraseña."
+---
+
+<Note>
+  Requiere autenticación con Bearer token.
+</Note>
+
+<ParamField path="token" type="string" required>
+  Token único de la invitación.
+</ParamField>
+
+<ParamField body="name" type="string">
+  Nombre completo del usuario. Requerido si el usuario es nuevo.
+</ParamField>
+
+<ParamField body="password" type="string">
+  Contraseña para la nueva cuenta. Requerido si el usuario es nuevo.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="message" type="string">
+  Mensaje de confirmación.
+</ResponseField>
+
+<ResponseField name="merchant" type="object">
+  Detalles del merchant al que se unió el usuario.
+
+  <Expandable title="Propiedades">
+    <ResponseField name="id" type="string">
+      Identificador único del merchant.
+    </ResponseField>
+
+    <ResponseField name="name" type="string">
+      Nombre del merchant.
+    </ResponseField>
+
+    <ResponseField name="role" type="string">
+      Rol asignado al usuario dentro del merchant.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "message": "Invitación aceptada exitosamente.",
+  "merchant": {
+    "id": "merch_abc123",
+    "name": "Mi Tienda Online",
+    "role": "operator"
+  }
+}
+```
+</ResponseExample>

@@ -1,0 +1,73 @@
+---
+title: "Registrar usuario"
+api: "POST /auth/register"
+description: "Crea una nueva cuenta de usuario en la plataforma."
+---
+
+<ParamField body="email" type="string" required>
+  Correo electrónico del usuario.
+</ParamField>
+
+<ParamField body="password" type="string" required>
+  Contraseña del usuario. Debe tener al menos 8 caracteres.
+</ParamField>
+
+<ParamField body="name" type="string" required>
+  Nombre completo del usuario.
+</ParamField>
+
+<ParamField body="phone" type="string" required>
+  Número de teléfono del usuario.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="accessToken" type="string">
+  Token de acceso JWT para autenticar solicitudes.
+</ResponseField>
+
+<ResponseField name="refreshToken" type="string">
+  Token de actualización para obtener un nuevo access token.
+</ResponseField>
+
+<ResponseField name="user" type="object">
+  Objeto con la información del usuario creado.
+
+  <Expandable title="Propiedades">
+    <ResponseField name="id" type="string">
+      Identificador único del usuario.
+    </ResponseField>
+    <ResponseField name="email" type="string">
+      Correo electrónico del usuario.
+    </ResponseField>
+    <ResponseField name="name" type="string">
+      Nombre completo del usuario.
+    </ResponseField>
+    <ResponseField name="phone" type="string">
+      Número de teléfono del usuario.
+    </ResponseField>
+    <ResponseField name="role" type="string">
+      Rol asignado al usuario.
+    </ResponseField>
+    <ResponseField name="status" type="string">
+      Estado de la cuenta del usuario.
+    </ResponseField>
+  </Expandable>
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "user": {
+    "id": "usr_abc123",
+    "email": "usuario@ejemplo.com",
+    "name": "Juan Pérez",
+    "phone": "+584121234567",
+    "role": "user",
+    "status": "pending_verification"
+  }
+}
+```
+</ResponseExample>

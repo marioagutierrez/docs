@@ -1,0 +1,118 @@
+---
+title: "Manejo de errores"
+description: "Códigos de error y cómo manejarlos en tu integración"
+---
+
+## Formato de errores
+
+Todas las respuestas de error de la API siguen un formato JSON consistente:
+
+```json
+{
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "El campo 'amount' es requerido",
+    "status": 400
+  }
+}
+```
+
+## Códigos HTTP
+
+| Código | Significado | Acción recomendada |
+|--------|-------------|-------------------|
+| `200` | Éxito | Procesa la respuesta normalmente |
+| `201` | Recurso creado | El recurso fue creado exitosamente |
+| `400` | Petición inválida | Revisa los parámetros enviados |
+| `401` | No autenticado | Verifica tu token o API key |
+| `403` | Sin permisos | No tienes acceso a este recurso |
+| `404` | No encontrado | El recurso no existe |
+| `409` | Conflicto | Operación duplicada o estado inconsistente |
+| `422` | Validación fallida | Revisa el formato de los datos |
+| `429` | Rate limit | Espera antes de reintentar |
+| `500` | Error del servidor | Reintenta con backoff exponencial |
+
+## Códigos de error comunes
+
+### Autenticación
+
+| Código | Descripción |
+|--------|-------------|
+| `TOKEN_EXPIRED` | El accessToken ha expirado. Renuévalo con refreshToken |
+| `TOKEN_INVALID` | El token no es válido |
+| `REFRESH_TOKEN_EXPIRED` | El refreshToken expiró. El usuario debe hacer login |
+| `API_KEY_REVOKED` | La API key fue revocada |
+
+### Transacciones
+
+| Código | Descripción |
+|--------|-------------|
+| `INSUFFICIENT_FUNDS` | Fondos insuficientes en la cuenta |
+| `INVALID_ACCOUNT` | Número de cuenta no válido |
+| `BANK_UNAVAILABLE` | El banco destino no está disponible |
+| `TRANSFER_LIMIT_EXCEEDED` | Se excedió el límite de transferencia |
+
+### Merchants
+
+| Código | Descripción |
+|--------|-------------|
+| `MERCHANT_NOT_FOUND` | El merchant no existe |
+| `MERCHANT_INACTIVE` | El merchant está desactivado |
+| `RIF_ALREADY_EXISTS` | Ya existe un merchant con ese RIF |
+| `MEMBER_ALREADY_EXISTS` | El usuario ya es miembro del merchant |
+
+## Reintentos
+
+Para errores `5xx` y `429`, implementa reintentos con backoff exponencial:
+
+<CodeGroup>
+```javascript Node.js
+async function apiCall(url, options, maxRetries = 3) {
+  for (let i = 0; i < maxRetries; i++) {
+    const response = await fetch(url, options);
+
+    if (response.status === 429 || response.status >= 500) {
+      const delay = Math.pow(2, i) * 1000; // 1s, 2s, 4s
+      await new Promise(resolve => setTimeout(resolve, delay));
+      continue;
+    }
+
+    return response;
+  }
+  throw new Error('Max retries exceeded');
+}
+```
+
+```python Python
+import time
+import requests
+
+def api_call(url, max_retries=3, **kwargs):
+    for i in range(max_retries):
+        response = requests.request(url=url, **kwargs)
+
+        if response.status_code in (429, 500, 502, 503):
+            time.sleep(2 ** i)  # 1s, 2s, 4s
+            continue
+
+        return response
+    raise Exception('Max retries exceeded')
+```
+</CodeGroup>
+
+## Paginación
+
+Los endpoints que retornan listas usan paginación con los siguientes parámetros:
+
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| `page` | `1` | Número de página |
+| `limit` | `50` | Elementos por página |
+| `search` | - | Búsqueda por texto |
+| `status` | - | Filtrar por estado |
+| `environment` | - | `"live"` o `"test"` |
+
+```bash
+curl "https://api.venepagos.com.ve/api/v1/merchants?page=2&limit=10&status=ACTIVE" \
+  -H "Authorization: Bearer TU_ACCESS_TOKEN"
+```

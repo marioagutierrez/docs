@@ -1,0 +1,27 @@
+---
+title: "Revocar API key"
+api: "DELETE /api-keys/{id}"
+description: "Revoca una API key existente. Esta acción es irreversible."
+---
+
+<Note>
+  Requiere autenticación con Bearer token.
+</Note>
+
+<ParamField path="id" type="string" required>
+  Identificador único de la API key a revocar.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="message" type="string">
+  Mensaje de confirmación de la revocación.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "message": "API key revocada exitosamente."
+}
+```
+</ResponseExample>

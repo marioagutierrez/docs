@@ -1,97 +1,74 @@
 ---
-title: "Introduction"
-description: "Welcome to the new home for your documentation"
+title: "VenePagos"
+description: "Infraestructura de pagos para el comercio digital venezolano"
 ---
 
-## Setting up
+## Bienvenido a VenePagos
 
-Get your documentation site up and running in minutes.
+VenePagos es la plataforma de pagos diseñada para el comercio digital en Venezuela. Procesa pagos en línea con seguridad bancaria, integración por API y liquidación directa a tu cuenta.
 
 <Card
-  title="Start here"
+  title="Guía de inicio rápido"
   icon="rocket"
   href="/quickstart"
   horizontal
 >
-  Follow our three step quickstart guide.
+  Comienza a recibir pagos en minutos con nuestra guía paso a paso.
 </Card>
 
-## Make it yours
+## Características principales
 
-Design a docs site that looks great and empowers your users.
+<Columns cols={2}>
+  <Card title="Procesamiento en tiempo real" icon="bolt">
+    Confirmación instantánea con 99.9% de uptime y respuestas en menos de 2 segundos.
+  </Card>
+  <Card title="Comisión simple" icon="percent">
+    2% fijo por transacción. Sin cuotas mensuales ni cargos ocultos.
+  </Card>
+  <Card title="Seguridad bancaria" icon="shield-halved">
+    Encriptación SSL/TLS 256-bit, AES-256 en reposo. Cumplimiento SUDEBAN.
+  </Card>
+  <Card title="Multi-plataforma" icon="puzzle-piece">
+    WooCommerce, Shopify, WordPress o integración directa por API.
+  </Card>
+</Columns>
+
+## Explora la documentación
 
 <Columns cols={2}>
   <Card
-    title="Edit locally"
-    icon="pen-to-square"
-    href="/development"
+    title="Autenticación"
+    icon="key"
+    href="/autenticacion"
   >
-    Edit your docs locally and preview them in real time.
+    Aprende a autenticarte con la API usando Bearer tokens.
   </Card>
   <Card
-    title="Customize your site"
-    icon="palette"
-    href="/essentials/settings"
-  >
-    Customize the design and colors of your site to match your brand.
-  </Card>
-    <Card
-    title="Set up navigation"
-    icon="map"
-    href="/essentials/navigation"
-  >
-    Organize your docs to help users find what they need and succeed with your product.
-  </Card>
-  <Card
-    title="API documentation"
-    icon="terminal"
+    title="API Reference"
+    icon="code"
     href="/api-reference/introduction"
   >
-    Auto-generate API documentation from OpenAPI specifications.
+    Referencia completa de todos los endpoints disponibles.
+  </Card>
+  <Card
+    title="SDKs"
+    icon="toolbox"
+    href="/sdks"
+  >
+    SDKs oficiales para Node.js, Python y PHP.
+  </Card>
+  <Card
+    title="Webhooks"
+    icon="bell"
+    href="/integraciones/webhooks"
+  >
+    Recibe notificaciones en tiempo real de tus transacciones.
   </Card>
 </Columns>
 
-## Create beautiful pages
+## Métodos de pago soportados
 
-Everything you need to create world-class documentation.
-
-<Columns cols={2}>
-  <Card
-    title="Write with MDX"
-    icon="pen-fancy"
-    href="/essentials/markdown"
-  >
-    Use MDX to style your docs pages.
-  </Card>
-  <Card
-    title="Code samples"
-    icon="code"
-    href="/essentials/code"
-  >
-    Add sample code to demonstrate how to use your product.
-  </Card>
-  <Card
-    title="Images"
-    icon="image"
-    href="/essentials/images"
-  >
-    Display images and other media.
-  </Card>
-  <Card
-    title="Reusable snippets"
-    icon="recycle"
-    href="/essentials/reusable-snippets"
-  >
-    Write once and reuse across your docs.
-  </Card>
-</Columns>
-
-## Need inspiration?
-
-<Card
-  title="See complete examples"
-  icon="stars"
-  href="https://mintlify.com/customers"
->
-  Browse our showcase of exceptional documentation sites.
-</Card>
+- Links de pago personalizados (compartibles por WhatsApp, email, redes sociales)
+- Transferencias bancarias (SIMF)
+- Pagos móviles C2P (pago por celular)
+- Integración directa por API RESTful

@@ -1,0 +1,51 @@
+---
+title: "Estado de transferencia"
+api: "GET https://api.venepagos.com.ve/api/v1/bank/transfer/status"
+description: "Consulta el estado actual de una transferencia bancaria por referencia o identificador."
+---
+
+<Note>
+  Este endpoint requiere autenticación mediante Bearer token.
+</Note>
+
+<ParamField query="reference" type="string">
+  Número de referencia bancaria de la transferencia. Debe proporcionar `reference` o `id`.
+</ParamField>
+
+<ParamField query="id" type="string">
+  Identificador único de la transferencia. Debe proporcionar `reference` o `id`.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="id" type="string">
+  Identificador único de la transferencia.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Estado actual de la transferencia (`success`, `failed`, `pending`).
+</ResponseField>
+
+<ResponseField name="amount" type="number">
+  Monto de la transferencia en bolívares.
+</ResponseField>
+
+<ResponseField name="reference" type="string">
+  Número de referencia bancaria.
+</ResponseField>
+
+<ResponseField name="updatedAt" type="string">
+  Fecha y hora de la última actualización del estado en formato ISO 8601.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "id": "txn_01HQXK7P3T",
+  "status": "success",
+  "amount": 150.00,
+  "reference": "20260331000012345",
+  "updatedAt": "2026-03-31T14:35:00Z"
+}
+```
+</ResponseExample>

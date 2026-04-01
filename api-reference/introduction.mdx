@@ -1,33 +1,97 @@
 ---
-title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+title: "Introducción"
+description: "Referencia completa de la API de VenePagos"
 ---
 
-<Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
-</Note>
+## API de VenePagos
 
-## Welcome
+La API de VenePagos te permite integrar pagos, transferencias bancarias y gestión de comercios directamente en tu plataforma.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+**Base URL:**
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
+```
+https://api.venepagos.com.ve/api/v1
+```
+
+## Autenticación
+
+Todos los endpoints (excepto login y registro) requieren autenticación via Bearer token:
+
+```bash
+curl https://api.venepagos.com.ve/api/v1/merchants \
+  -H "Authorization: Bearer TU_ACCESS_TOKEN"
+```
+
+Puedes usar:
+- **Access Token** (JWT) - Obtenido al hacer login, válido 24 horas
+- **API Key** - Creada desde la API, no expira. Prefijo `vp_live_` o `vp_test_`
+
+<Card title="Guía de autenticación" icon="key" href="/autenticacion">
+  Aprende más sobre el flujo de autenticación completo.
 </Card>
 
-## Authentication
+## Formato de respuestas
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
+Todas las respuestas son JSON. Las respuestas exitosas retornan el recurso directamente:
 
 ```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
+{
+  "id": "mch_abc123",
+  "name": "Mi Tienda",
+  "status": "ACTIVE"
+}
 ```
+
+Los errores siguen un formato consistente:
+
+```json
+{
+  "error": {
+    "code": "INVALID_REQUEST",
+    "message": "Descripción del error",
+    "status": 400
+  }
+}
+```
+
+## Paginación
+
+Los endpoints que retornan listas soportan paginación:
+
+| Parámetro | Default | Descripción |
+|-----------|---------|-------------|
+| `page` | `1` | Número de página |
+| `limit` | `50` | Elementos por página |
+| `search` | - | Búsqueda por texto |
+| `status` | - | Filtrar por estado |
+| `environment` | `"live"` | `"live"` o `"test"` |
+
+## Entornos
+
+| Entorno | API Keys | Transacciones |
+|---------|----------|---------------|
+| **Producción** | `vp_live_*` | Reales |
+| **Sandbox** | `vp_test_*` | Simuladas |
+
+## Endpoints disponibles
+
+<CardGroup cols={2}>
+  <Card title="Autenticación" icon="lock" href="/api-reference/auth/register">
+    Registro, login, tokens y verificación de cuenta.
+  </Card>
+  <Card title="Merchants" icon="store" href="/api-reference/merchants/list">
+    Gestión de comercios, miembros y tiendas.
+  </Card>
+  <Card title="Operaciones bancarias" icon="building-columns" href="/api-reference/bank/accounts">
+    Cuentas, transferencias, pagos móviles y tasas.
+  </Card>
+  <Card title="API Keys" icon="key" href="/api-reference/api-keys/list">
+    Crear y gestionar API keys.
+  </Card>
+  <Card title="Notificaciones" icon="bell" href="/api-reference/notifications/list">
+    Gestión de notificaciones push.
+  </Card>
+  <Card title="Admin" icon="shield" href="/api-reference/admin/dashboard">
+    Endpoints administrativos de la plataforma.
+  </Card>
+</CardGroup>

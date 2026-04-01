@@ -1,0 +1,58 @@
+---
+title: "Transferencia bancaria"
+api: "POST https://api.venepagos.com.ve/api/v1/bank/transfer"
+description: "Realiza una transferencia bancaria a otra cuenta en Venezuela."
+---
+
+<Note>
+  Este endpoint requiere autenticación mediante Bearer token.
+</Note>
+
+<ParamField body="account_number" type="string" required>
+  Número de cuenta origen registrada en tu cuenta de VenePagos.
+</ParamField>
+
+<ParamField body="destination_bank" type="string" required>
+  Código del banco destino (4 dígitos). Consulta el endpoint de [códigos de bancos](/api-reference/bank/codes) para obtener los valores válidos.
+</ParamField>
+
+<ParamField body="destination_account" type="string" required>
+  Número de cuenta destino (20 dígitos).
+</ParamField>
+
+<ParamField body="amount" type="number" required>
+  Monto a transferir en bolívares.
+</ParamField>
+
+<ParamField body="simulate" type="string">
+  Solo disponible en entorno **sandbox**. Permite simular el resultado de la transferencia. Valores posibles: `success`, `failed`, `pending`.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="id" type="string">
+  Identificador único de la transferencia.
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Estado de la transferencia (`success`, `failed`, `pending`).
+</ResponseField>
+
+<ResponseField name="amount" type="number">
+  Monto transferido en bolívares.
+</ResponseField>
+
+<ResponseField name="reference" type="string">
+  Número de referencia bancaria de la transferencia.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "id": "txn_01HQXK7P3T",
+  "status": "success",
+  "amount": 150.00,
+  "reference": "20260331000012345"
+}
+```
+</ResponseExample>

@@ -1,0 +1,29 @@
+---
+title: "Introducción al Sandbox"
+description: "El entorno Sandbox te permite probar integraciones sin afectar datos reales."
+---
+
+El Sandbox de VenePagos es un entorno de pruebas completo que imita el comportamiento de producción. 
+
+### Características principales
+
+- **Sin transacciones reales**: No se procesa dinero real.
+- **Simulación de estados**: Puedes controlar si un pago es exitoso, fallido o queda pendiente.
+- **Sin configuración bancaria**: No necesitas validar cuentas bancarias reales para probar el flujo de pago.
+- **API Keys**: Usa llaves con prefijo `vp_test_`.
+
+### Endpoint Base del Sandbox
+
+Para interactuar específicamente con recursos de prueba, algunos endpoints están prefijados con `/sandbox`:
+
+```
+https://api.venepagos.com.ve/api/v1/sandbox
+```
+
+### Limpiar datos de prueba
+
+Si deseas reiniciar tu entorno de pruebas, puedes usar este endpoint para eliminar todos tus links y transacciones de sandbox.
+
+<Card title="Borrar datos de sandbox" icon="trash" api="DELETE /sandbox/clean">
+  Elimina permanentemente todos los recursos con `environment: "test"` asociados a tu cuenta.
+</Card>

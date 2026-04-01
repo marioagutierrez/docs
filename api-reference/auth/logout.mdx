@@ -1,0 +1,23 @@
+---
+title: "Cerrar sesión"
+api: "POST /auth/logout"
+description: "Cierra la sesión del usuario e invalida el token actual."
+---
+
+<Note>
+  Este endpoint requiere autenticación. Incluye el header `Authorization: Bearer {accessToken}`.
+</Note>
+
+### Respuesta
+
+<ResponseField name="message" type="string">
+  Mensaje de confirmación del cierre de sesión.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "message": "Sesión cerrada exitosamente."
+}
+```
+</ResponseExample>

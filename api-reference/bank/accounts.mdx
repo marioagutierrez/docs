@@ -1,0 +1,50 @@
+---
+title: "Listar cuentas bancarias"
+api: "GET https://api.venepagos.com.ve/api/v1/bank/accounts"
+description: "Obtiene la lista de cuentas bancarias registradas en tu cuenta."
+---
+
+<Note>
+  Este endpoint requiere autenticación mediante Bearer token.
+</Note>
+
+### Respuesta
+
+<ResponseField name="id" type="string">
+  Identificador único de la cuenta bancaria.
+</ResponseField>
+
+<ResponseField name="bankCode" type="string">
+  Código del banco (4 dígitos).
+</ResponseField>
+
+<ResponseField name="bankName" type="string">
+  Nombre del banco.
+</ResponseField>
+
+<ResponseField name="accountNumber" type="string">
+  Número de cuenta bancaria (20 dígitos).
+</ResponseField>
+
+<ResponseField name="type" type="string">
+  Tipo de cuenta (`corriente` o `ahorro`).
+</ResponseField>
+
+<ResponseField name="status" type="string">
+  Estado de la cuenta (`active`, `inactive`).
+</ResponseField>
+
+<ResponseExample>
+```json
+[
+  {
+    "id": "acc_01HQXK3V2N",
+    "bankCode": "0102",
+    "bankName": "Banco de Venezuela",
+    "accountNumber": "01020100000000012345",
+    "type": "corriente",
+    "status": "active"
+  }
+]
+```
+</ResponseExample>

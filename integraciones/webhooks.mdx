@@ -1,0 +1,117 @@
+---
+title: "Webhooks"
+description: "Recibe notificaciones en tiempo real cuando ocurren eventos en tu cuenta"
+---
+
+## Qué son los webhooks
+
+Los webhooks son notificaciones HTTP que VenePagos envía a tu servidor cuando ocurren eventos importantes, como un pago completado o una transferencia fallida.
+
+## Cómo funcionan
+
+1. Configuras una URL de tu servidor como endpoint de webhook
+2. Cuando ocurre un evento, VenePagos envía un `POST` a tu URL
+3. Tu servidor procesa la notificación y responde con `200 OK`
+
+## Eventos disponibles
+
+| Evento | Descripción |
+|--------|-------------|
+| `transaction.completed` | Una transacción se completó exitosamente |
+| `transaction.failed` | Una transacción falló |
+| `transaction.pending` | Una transacción está en proceso |
+| `transfer.completed` | Una transferencia bancaria se completó |
+| `transfer.failed` | Una transferencia bancaria falló |
+| `merchant.updated` | Se actualizó la configuración del merchant |
+| `invitation.accepted` | Un miembro aceptó la invitación |
+
+## Formato del payload
+
+```json
+{
+  "event": "transaction.completed",
+  "timestamp": "2025-01-15T14:30:00Z",
+  "data": {
+    "id": "txn_abc123",
+    "merchantId": "mch_xyz789",
+    "type": "PAYMENT",
+    "amount": 50.00,
+    "status": "COMPLETED",
+    "environment": "live"
+  }
+}
+```
+
+## Implementar un webhook
+
+<CodeGroup>
+```javascript Express.js
+app.post('/webhooks/venepagos', (req, res) => {
+  const event = req.body;
+
+  switch (event.event) {
+    case 'transaction.completed':
+      // Marcar orden como pagada
+      console.log('Pago recibido:', event.data.id);
+      break;
+    case 'transaction.failed':
+      // Notificar al usuario
+      console.log('Pago fallido:', event.data.id);
+      break;
+  }
+
+  res.status(200).json({ received: true });
+});
+```
+
+```python Flask
+@app.route('/webhooks/venepagos', methods=['POST'])
+def webhook():
+    event = request.json
+
+    if event['event'] == 'transaction.completed':
+        # Marcar orden como pagada
+        print(f"Pago recibido: {event['data']['id']}")
+    elif event['event'] == 'transaction.failed':
+        # Notificar al usuario
+        print(f"Pago fallido: {event['data']['id']}")
+
+    return {'received': True}, 200
+```
+
+```php PHP
+$payload = json_decode(file_get_contents('php://input'), true);
+
+switch ($payload['event']) {
+    case 'transaction.completed':
+        // Marcar orden como pagada
+        error_log('Pago recibido: ' . $payload['data']['id']);
+        break;
+    case 'transaction.failed':
+        // Notificar al usuario
+        error_log('Pago fallido: ' . $payload['data']['id']);
+        break;
+}
+
+http_response_code(200);
+echo json_encode(['received' => true]);
+```
+</CodeGroup>
+
+## Buenas prácticas
+
+<AccordionGroup>
+  <Accordion title="Responde rápido">
+    Tu endpoint debe responder en menos de 5 segundos. Si necesitas hacer procesamiento pesado, responde `200` inmediatamente y procesa en background.
+  </Accordion>
+  <Accordion title="Maneja duplicados">
+    Los webhooks pueden enviarse más de una vez. Usa el `id` de la transacción para verificar si ya procesaste el evento.
+  </Accordion>
+  <Accordion title="Usa HTTPS">
+    Tu endpoint de webhook debe usar HTTPS para proteger los datos en tránsito.
+  </Accordion>
+</AccordionGroup>
+
+<Note>
+  Los webhooks funcionan tanto en sandbox como en producción. Usa sandbox para probar tu implementación antes de ir a producción.
+</Note>

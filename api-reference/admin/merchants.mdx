@@ -1,0 +1,96 @@
+---
+title: "Gestión de merchants"
+api: "GET /admin/merchants"
+description: "Endpoints para la gestión de merchants de la plataforma. Requiere rol ADMIN."
+---
+
+<Note>
+  Requiere autenticación con Bearer token y rol **ADMIN**.
+</Note>
+
+## Listar merchants
+
+<ParamField query="page" type="integer">
+  Número de página. Por defecto `1`.
+</ParamField>
+
+<ParamField query="limit" type="integer">
+  Cantidad de resultados por página. Por defecto `20`.
+</ParamField>
+
+<ParamField query="search" type="string">
+  Texto de búsqueda por nombre del merchant.
+</ParamField>
+
+<ParamField query="status" type="string">
+  Filtrar por estado del merchant: `active`, `inactive`, `pending`.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="data" type="array">
+  Lista paginada de merchants.
+</ResponseField>
+
+<ResponseField name="page" type="integer">
+  Página actual.
+</ResponseField>
+
+<ResponseField name="limit" type="integer">
+  Cantidad de resultados por página.
+</ResponseField>
+
+<ResponseField name="total" type="integer">
+  Total de merchants que coinciden con los filtros.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "data": [
+    {
+      "id": "merch_abc123",
+      "name": "Mi Tienda Online",
+      "status": "active",
+      "owner": "Juan Pérez",
+      "createdAt": "2026-02-01T10:00:00Z"
+    }
+  ],
+  "page": 1,
+  "limit": 20,
+  "total": 1
+}
+```
+</ResponseExample>
+
+---
+
+## Obtener merchant por ID
+
+```
+GET /admin/merchants/{id}
+```
+
+<ParamField path="id" type="string" required>
+  Identificador único del merchant.
+</ParamField>
+
+Retorna el detalle completo de un merchant específico.
+
+<ResponseExample>
+```json 200
+{
+  "id": "merch_abc123",
+  "name": "Mi Tienda Online",
+  "status": "active",
+  "owner": {
+    "id": "usr_abc123",
+    "name": "Juan Pérez",
+    "email": "juan@ejemplo.com"
+  },
+  "rif": "J-12345678-9",
+  "environment": "production",
+  "createdAt": "2026-02-01T10:00:00Z"
+}
+```
+</ResponseExample>

@@ -1,0 +1,28 @@
+---
+title: "Renovar token"
+api: "POST /auth/refresh"
+description: "Genera un nuevo par de tokens usando el refresh token actual."
+---
+
+<ParamField body="refreshToken" type="string" required>
+  Token de actualización obtenido en el inicio de sesión o registro.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="accessToken" type="string">
+  Nuevo token de acceso JWT.
+</ResponseField>
+
+<ResponseField name="refreshToken" type="string">
+  Nuevo token de actualización.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+</ResponseExample>

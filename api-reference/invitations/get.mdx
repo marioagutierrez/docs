@@ -1,0 +1,42 @@
+---
+title: "Ver invitación"
+api: "GET /invitations/{token}"
+description: "Obtiene los detalles de una invitación mediante su token."
+---
+
+<Note>
+  Requiere autenticación con Bearer token.
+</Note>
+
+<ParamField path="token" type="string" required>
+  Token único de la invitación.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="merchantName" type="string">
+  Nombre del merchant que envió la invitación.
+</ResponseField>
+
+<ResponseField name="role" type="string">
+  Rol asignado en la invitación (ej: `admin`, `operator`, `viewer`).
+</ResponseField>
+
+<ResponseField name="email" type="string">
+  Correo electrónico al que fue enviada la invitación.
+</ResponseField>
+
+<ResponseField name="expiresAt" type="string">
+  Fecha de expiración de la invitación en formato ISO 8601.
+</ResponseField>
+
+<ResponseExample>
+```json 200
+{
+  "merchantName": "Mi Tienda Online",
+  "role": "operator",
+  "email": "usuario@ejemplo.com",
+  "expiresAt": "2026-04-07T10:00:00Z"
+}
+```
+</ResponseExample>

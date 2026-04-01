@@ -1,0 +1,23 @@
+---
+title: "Reenviar verificación"
+api: "POST /auth/resend-verification"
+description: "Reenvía el código de verificación al correo electrónico del usuario."
+---
+
+<ParamField body="email" type="string" required>
+  Correo electrónico del usuario que necesita un nuevo código de verificación.
+</ParamField>
+
+### Respuesta
+
+<ResponseField name="message" type="string">
+  Mensaje de confirmación del reenvío.
+</ResponseField>
+
+<ResponseExample>
+```json
+{
+  "message": "Código de verificación reenviado exitosamente."
+}
+```
+</ResponseExample>
