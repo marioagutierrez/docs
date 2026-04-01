@@ -4,7 +4,7 @@
   "name": "VenePagos",
   "colors": {
     "primary": "#1078FF",
-    "light": "#07C983",
+    "light": "#1078FF",
     "dark": "#1078FF"
   },
   "favicon": "/favicon.svg",
@@ -190,7 +190,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://venepagos.com.ve"
+      "href": "https://app.venepagos.com.ve"
     }
   },
   "footer": {
